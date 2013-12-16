@@ -12,27 +12,48 @@ that you can use monads to construct your services.
 
 ```javascript
 angular.module('app', ['crockford.monad'])
-  .service('$alertService', function($monad) {
+  .service('$coolService', function($monad) {
+
+    function something(a) {
+      return a + 1;
+    }
+
+    function getMessage(msg) {
+      return 'message is: ' + msg;
+    }
+
+    function getAnotherMessage(msg, other) {
+      return other + msg;
+    }
+
     return $monad()
+
+      // lift returns the monad and so they can be chained
       .lift('alert', alert)
-      .lift('consoleLog' console.log);
+      .lift('consoleLog' console.log)
+
+      // lift_value returns a value and so they can't be chained
+      .lift_value('getMessage', getMessage)
+      .lift_value('getAnotherMessage', getAnotherMessage)
+
+      .method('something', something);
   });
 
-  .controller('ctrl', function($alertService) {
-    var monad = $alertService('hi');
+  .controller('ctrl', function($coolService) {
+    var monad = $coolService('hi');
 
     // 'hi' appears in the console log and an alert box
     monad.alert().consoleLog();
+
+    // the first argument is always reserved for the initial value
+    monad.getMessage(); // => 'message is: hi'
+    monad.getAnotherMessage('well '); // => 'well hi'
+
+    // doesn't use the any value given in the monad instantiation
+    monad.something(2); // => 3
   });
 ```
 
-## TODO
-
-1. Make sure that it actuall works
-2. Specs?
-3. More examples
-4. Better documentation
-
 ## License
 
-MIT
+Do whatever you want with it

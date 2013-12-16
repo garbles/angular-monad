@@ -1,6 +1,6 @@
 {
   "name": "angular-monad",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "An AngularJS implementation of Douglas Crockford's implementation of the AJAX monad",
   "main": "./build/monad.js",
   "directories": {
