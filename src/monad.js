@@ -1,6 +1,6 @@
 // https://github.com/douglascrockford/monad/blob/master/monad.js
 
-angular.module('crockford.monad')
+angular.module('crockford.monad', [])
   .factory('$monad', function(){
     return function(modifier) {
       'use strict';
