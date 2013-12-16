@@ -14,6 +14,11 @@ that you can use monads to construct your services.
 angular.module('app', ['crockford.monad'])
   .service('$coolService', function($monad) {
 
+    function makeAlert(msg) {
+      alert(msg);
+      return msg;
+    }
+
     function something(a) {
       return a + 1;
     }
@@ -29,7 +34,7 @@ angular.module('app', ['crockford.monad'])
     return $monad()
 
       // lift returns the monad and so they can be chained
-      .lift('alert', alert)
+      .lift('alert', makeAlert)
       .lift('consoleLog' console.log)
 
       // lift_value returns a value and so they can't be chained
